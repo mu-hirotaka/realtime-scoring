@@ -1,0 +1,42 @@
+#!/usr/bin/env node
+var debug = require('debug')('realtime-scoring-system');
+var app = require('../app');
+
+app.set('port', process.env.PORT || 3000);
+
+var server = app.listen(app.get('port'), function() {
+  debug('Express server listening on port ' + server.address().port);
+});
+
+var socketIO = require('socket.io');
+var io = socketIO.listen(server);
+
+var playerIdToPoint = {
+  1: 0,
+  2: 0,
+  3: 0,
+  4: 0,
+};
+var playerIdToName = {
+  1: '柿谷',
+  2: '香川',
+  3: '本田',
+  4: '岡崎',
+};
+
+io.on('connection', function(socket) {
+
+  socket.emit('login', {
+    point: playerIdToPoint,
+    name: playerIdToName
+  });
+  socket.on('good', function(id) {
+    playerIdToPoint[id]++;
+    console.log(playerIdToPoint);
+    io.sockets.emit('update status', {
+      point: playerIdToPoint,
+      name: playerIdToName
+    });
+  });
+
+});

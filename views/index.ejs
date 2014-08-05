@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Realtime Scoring</h1>
+    <button class="btn" data-id="1">柿谷</button>
+    <button class="btn" data-id="2">香川</button>
+    <button class="btn" data-id="3">本田</button>
+    <button class="btn" data-id="4">岡崎</button>
+    <ul class="score">
+    </ul>
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/javascripts/main.js"></script>
+  </body>
+</html>
